@@ -20,7 +20,7 @@ func ManageCommands() {
 		}
 		AddTask(os.Args[2])
 	case "list":
-		fmt.Println("List All Tasks...")
+		ListTasks()
 	case "delete":
 		fmt.Println("Task Deleted...")
 	case "update":
