@@ -35,8 +35,12 @@ func AddTask(description string) {
 }
 
 func ListTasks() {
-	Loadtasks()
+	tasks, err := Loadtasks()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 	for _, task := range tasks {
-		fmt.Printf("%+v\n", task)
+		fmt.Printf("ID: %d | %s | %s\n", task.ID, task.Description, task.Status)
 	}
 }
