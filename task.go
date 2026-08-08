@@ -84,3 +84,31 @@ func DeleteTask(id string) {
 	}
 	fmt.Println("✅ Task Deleted.")
 }
+
+func UpdateTask(id string, des string) {
+	idToFind, err := strconv.Atoi(id)
+	if err != nil {
+		fmt.Println("❌ Error: ", err)
+		return
+	}
+	tasks, err := Loadtasks()
+
+	found := false
+	for i := range tasks {
+		if tasks[i].ID == idToFind {
+			tasks[i].Description = des
+			found = true
+			break
+		}
+	}
+	if !found {
+		fmt.Println("❌ Error: Task Not Found")
+		return
+	}
+	err = SaveTasks(tasks)
+	if err != nil {
+		fmt.Println("❌ Error: ", err)
+		return
+	}
+	fmt.Println("✅ Task Updated.")
+}
