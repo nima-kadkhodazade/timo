@@ -7,7 +7,7 @@ import (
 
 func ManageCommands() {
 	if len(os.Args) < 2 {
-		fmt.Println("Usage: timo <command>")
+		fmt.Println("⚠️  Usage: timo <command>")
 		return
 	}
 	command := os.Args[1]
