@@ -48,13 +48,12 @@ func ListTasks() {
 		return
 	}
 	for _, task := range tasks {
-		fmt.Printf("ID: %d | Description: %s | Status: %s\n", task.ID, task.Description, task.Status)
+		fmt.Printf("ID: %d | Description: %s | Status: %s | Created: %s\n", task.ID, task.Description, task.Status, TimeAgo(task.CreatedAt))
 	}
 }
 
 func DeleteTask(id string) {
-	idStr := id
-	idToDelete, err := strconv.Atoi(idStr)
+	idToDelete, err := strconv.Atoi(id)
 	if err != nil {
 		fmt.Println("❌ ID Should a Int: ", err)
 		return
@@ -97,6 +96,7 @@ func UpdateTask(id string, des string) {
 	for i := range tasks {
 		if tasks[i].ID == idToFind {
 			tasks[i].Description = des
+			tasks[i].UpdatedAt = time.Now()
 			found = true
 			break
 		}
@@ -120,22 +120,55 @@ func MarkTask(id string, status string) {
 		return
 	}
 	tasks, err := Loadtasks()
-	
+
 	found := false
 	for i := range tasks {
 		if tasks[i].ID == idToFind {
 			tasks[i].Status = status
+			tasks[i].UpdatedAt = time.Now()
 			found = true
 			break
 		}
 	}
 	if !found {
 		fmt.Println("❌ Error: Task Not Found")
+		return
 	}
 
 	err = SaveTasks(tasks)
 	if err != nil {
 		fmt.Println("❌ Error: ", err)
 		return
+	}
+}
+
+func TimeAgo(t time.Time) string {
+	elapsed := time.Since(t)
+
+	switch {
+	case elapsed < time.Minute:
+		return "just now"
+
+	case elapsed < time.Hour:
+		minutes := int(elapsed.Minutes())
+		if minutes == 1 {
+			return "1 minute ago"
+		}
+		return fmt.Sprintf("%d minutes ago", minutes)
+
+	case elapsed < 24*time.Hour:
+		hours := int(elapsed.Hours())
+		if hours == 1 {
+			return "1 hour ago"
+		}
+		return fmt.Sprintf("%d hours ago", hours)
+
+	default:
+		days := int(elapsed.Hours() / 24)
+		if days == 1 {
+			return "1 day ago"
+		}
+		return fmt.Sprintf("%d days ago", days)
+
 	}
 }
