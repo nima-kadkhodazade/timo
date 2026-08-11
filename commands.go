@@ -3,11 +3,18 @@ package main
 import (
 	"fmt"
 	"os"
+	"strings"
 )
 
 func ManageCommands() {
 	if len(os.Args) < 2 {
 		fmt.Println("⚠️  Usage: timo <command>")
+		return
+	}
+	if strings.HasPrefix(os.Args[1], "mark-") {
+		status := strings.TrimPrefix(os.Args[1], "mark-")
+		id := os.Args[2]
+		MarkTask(id, status)
 		return
 	}
 	command := os.Args[1]

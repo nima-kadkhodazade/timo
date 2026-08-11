@@ -29,7 +29,7 @@ func AddTask(description string) {
 	newTask := Task{
 		ID:          maxID + 1,
 		Description: description,
-		Status:      "Todo",
+		Status:      "todo",
 		CreatedAt:   time.Now(),
 		UpdatedAt:   time.Now(),
 	}
@@ -111,4 +111,31 @@ func UpdateTask(id string, des string) {
 		return
 	}
 	fmt.Println("✅ Task Updated.")
+}
+
+func MarkTask(id string, status string) {
+	idToFind, err := strconv.Atoi(id)
+	if err != nil {
+		fmt.Println("Error: ", err)
+		return
+	}
+	tasks, err := Loadtasks()
+	
+	found := false
+	for i := range tasks {
+		if tasks[i].ID == idToFind {
+			tasks[i].Status = status
+			found = true
+			break
+		}
+	}
+	if !found {
+		fmt.Println("❌ Error: Task Not Found")
+	}
+
+	err = SaveTasks(tasks)
+	if err != nil {
+		fmt.Println("❌ Error: ", err)
+		return
+	}
 }
