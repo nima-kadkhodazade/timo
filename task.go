@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"strconv"
 	"time"
@@ -84,7 +85,7 @@ func DeleteTask(id string) {
 	fmt.Println("✅ Task Deleted.")
 }
 
-func UpdateTask(id string, des string) {
+func UpdateTask(id string, description string) {
 	idToFind, err := strconv.Atoi(id)
 	if err != nil {
 		fmt.Println("❌ Error: ", err)
@@ -92,19 +93,14 @@ func UpdateTask(id string, des string) {
 	}
 	tasks, err := Loadtasks()
 
-	found := false
-	for i := range tasks {
-		if tasks[i].ID == idToFind {
-			tasks[i].Description = des
-			tasks[i].UpdatedAt = time.Now()
-			found = true
-			break
-		}
-	}
-	if !found {
-		fmt.Println("❌ Error: Task Not Found")
+	index, err := FindTask(tasks, idToFind)
+	if err != nil {
+		fmt.Println("❌ Error: ", err)
 		return
 	}
+	tasks[index].Description = description
+	tasks[index].UpdatedAt = time.Now()
+
 	err = SaveTasks(tasks)
 	if err != nil {
 		fmt.Println("❌ Error: ", err)
@@ -114,6 +110,13 @@ func UpdateTask(id string, des string) {
 }
 
 func MarkTask(id string, status string) {
+	switch status {
+	case "todo", "in-progress", "done":
+
+	default:
+		fmt.Println("❌ Invalid status.")
+		return
+	}
 	idToFind, err := strconv.Atoi(id)
 	if err != nil {
 		fmt.Println("Error: ", err)
@@ -121,19 +124,13 @@ func MarkTask(id string, status string) {
 	}
 	tasks, err := Loadtasks()
 
-	found := false
-	for i := range tasks {
-		if tasks[i].ID == idToFind {
-			tasks[i].Status = status
-			tasks[i].UpdatedAt = time.Now()
-			found = true
-			break
-		}
-	}
-	if !found {
-		fmt.Println("❌ Error: Task Not Found")
+	index, err := FindTask(tasks, idToFind)
+	if err != nil {
+		fmt.Println("❌ Error: ", err)
 		return
 	}
+	tasks[index].Status = status
+	tasks[index].UpdatedAt = time.Now()
 
 	err = SaveTasks(tasks)
 	if err != nil {
@@ -171,4 +168,13 @@ func TimeAgo(t time.Time) string {
 		return fmt.Sprintf("%d days ago", days)
 
 	}
+}
+
+func FindTask(tasks []Task, id int) (int, error) {
+	for i := range tasks {
+		if tasks[i].ID == id {
+			return i, nil
+		}
+	}
+	return -1, errors.New("task not found")
 }
