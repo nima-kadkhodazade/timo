@@ -48,6 +48,10 @@ func ListTasks() {
 		fmt.Println(err)
 		return
 	}
+	if len(tasks) == 0 {
+		fmt.Println("⚠️  Your todo is empty")
+		return
+	}
 	for _, task := range tasks {
 		fmt.Printf("ID: %d | Description: %s | Status: %s | Created: %s\n", task.ID, task.Description, task.Status, TimeAgo(task.CreatedAt))
 	}
@@ -56,12 +60,12 @@ func ListTasks() {
 func DeleteTask(id string) {
 	idToDelete, err := strconv.Atoi(id)
 	if err != nil {
-		fmt.Println("❌ ID Should a Int: ", err)
+		fmt.Println("❌ ID Should a Int:", err)
 		return
 	}
 	tasks, err := Loadtasks()
 	if err != nil {
-		fmt.Println("❌ Error: ", err)
+		fmt.Println("❌ Error:", err)
 		return
 	}
 	newTasks := make([]Task, 0, len(tasks))
@@ -79,7 +83,7 @@ func DeleteTask(id string) {
 	}
 	err = SaveTasks(newTasks)
 	if err != nil {
-		fmt.Println("❌ Error: ", err)
+		fmt.Println("❌ Error:", err)
 		return
 	}
 	fmt.Println("✅ Task Deleted.")
@@ -88,14 +92,14 @@ func DeleteTask(id string) {
 func UpdateTask(id string, description string) {
 	idToFind, err := strconv.Atoi(id)
 	if err != nil {
-		fmt.Println("❌ Error: ", err)
+		fmt.Println("❌ Error:", err)
 		return
 	}
 	tasks, err := Loadtasks()
 
 	index, err := FindTask(tasks, idToFind)
 	if err != nil {
-		fmt.Println("❌ Error: ", err)
+		fmt.Println("❌ Error:", err)
 		return
 	}
 	tasks[index].Description = description
@@ -103,7 +107,7 @@ func UpdateTask(id string, description string) {
 
 	err = SaveTasks(tasks)
 	if err != nil {
-		fmt.Println("❌ Error: ", err)
+		fmt.Println("❌ Error:", err)
 		return
 	}
 	fmt.Println("✅ Task Updated.")
@@ -119,14 +123,14 @@ func MarkTask(id string, status string) {
 	}
 	idToFind, err := strconv.Atoi(id)
 	if err != nil {
-		fmt.Println("Error: ", err)
+		fmt.Println("❌ Error:", err)
 		return
 	}
 	tasks, err := Loadtasks()
 
 	index, err := FindTask(tasks, idToFind)
 	if err != nil {
-		fmt.Println("❌ Error: ", err)
+		fmt.Println("❌ Error:", err)
 		return
 	}
 	tasks[index].Status = status
@@ -134,7 +138,7 @@ func MarkTask(id string, status string) {
 
 	err = SaveTasks(tasks)
 	if err != nil {
-		fmt.Println("❌ Error: ", err)
+		fmt.Println("❌ Error:", err)
 		return
 	}
 }

@@ -20,7 +20,7 @@ func Loadtasks() ([]Task, error) {
 }
 
 func SaveTasks(task []Task) error {
-	data, err := json.MarshalIndent(task, "", "")
+	data, err := json.MarshalIndent(task, " ", " ")
 	if err != nil {
 		return err
 	}
