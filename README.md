@@ -1,4 +1,6 @@
-# Timo
+<h1 align="center">
+  💻 TIMO
+</h1>
 
 <p align="center">
   <strong>A simple, fast and lightweight task manager for your terminal.</strong>
