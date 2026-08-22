@@ -19,6 +19,10 @@ func ManageCommands() {
 	}
 	command := os.Args[1]
 	switch command {
+	case "--help":
+		ShowHelp()
+	case "-v", "--version":
+		ShowVersion()
 	case "add":
 		if len(os.Args) < 3 {
 			fmt.Println("❌ Error: Please provide a task description")
@@ -45,6 +49,36 @@ func ManageCommands() {
 		UpdateTask(os.Args[2], os.Args[3])
 
 	default:
-		fmt.Println("❌ Wrong Command...!")
+		fmt.Println("timo: try 'timo --help' for more information")
 	}
+}
+
+func ShowHelp() {
+	fmt.Println(`	
+Usage:
+  timo <command> [arguments]
+	
+Commands:
+  add <description>             Add a new task
+  list                          List all tasks
+  update <id> <description>     Update a task description
+  delete <id>                   Delete a task
+  mark-todo <id>                Mark task as todo
+  mark-in-progress <id>         Mark task as in-progress
+  mark-done <id>                Mark task as done
+  help                          Show this help message
+  -v, --version                 Show Timo version
+	
+Examples:
+  timo add "Learn Go"
+  timo list
+  timo update 1 "Learn Go and build Timo"
+  timo mark-in-progress 1
+  timo mark-done 1
+  timo delete 1`)
+}
+
+func ShowVersion() {
+	Version := "dev"
+	fmt.Println("Timo", Version)
 }
