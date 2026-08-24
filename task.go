@@ -141,6 +141,7 @@ func MarkTask(id string, status string) {
 		fmt.Println("❌ Error:", err)
 		return
 	}
+	fmt.Println("✅ Status Updated.")
 }
 
 func TimeAgo(t time.Time) string {
