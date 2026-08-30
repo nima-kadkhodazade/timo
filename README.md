@@ -209,41 +209,6 @@ Your task data stays on your machine.
 
 ---
 
-## 🛠️ Building From Source
-
-Timo is written in Go.
-
-### Requirements
-
-- Go 1.24.4 or newer
-
-Clone the repository:
-
-```bash
-git clone https://github.com/nima-kadkhodazade/timo.git
-cd timo
-```
-
-Build:
-
-```bash
-go build -o timo
-```
-
-Run:
-
-```bash
-./timo list
-```
-
-Or install it into your Go binary directory:
-
-```bash
-go install .
-```
-
----
-
 ## 🤝 Contributing
 
 Contributions, ideas and feedback are welcome.
