@@ -40,10 +40,10 @@ jobs:
 
       - name: Package
         run: |
-            tar -czf timo-linux-amd64.tar.gz -C dist/linux-amd64/timo
-            tar -czf timo-linux-arm64.tar.gz -C dist/linux-arm64/timo
-            tar -czf timo-macos-amd64.tar.gz -C dist/macos-amd64/timo
-            tar -czf timo-macos-arm64.tar.gz -C dist/macos-arm64/timo
+            tar -czf timo-linux-amd64.tar.gz -C dist/linux-amd64 timo
+            tar -czf timo-linux-arm64.tar.gz -C dist/linux-arm64 timo
+            tar -czf timo-macos-amd64.tar.gz -C dist/macos-amd64 timo
+            tar -czf timo-macos-arm64.tar.gz -C dist/macos-arm64 timo
 
             sha256sum \
               timo-linux-amd64.tar.gz \
