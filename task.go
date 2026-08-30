@@ -49,7 +49,7 @@ func ListTasks() {
 		return
 	}
 	if len(tasks) == 0 {
-		fmt.Println("⚠️  Your todo is empty")
+		fmt.Println("⚠️  Your list is empty")
 		return
 	}
 	for _, task := range tasks {
