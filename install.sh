@@ -93,11 +93,6 @@ trap cleanup EXIT
 
 echo "Downloading $ARCHIVE..."
 
-echo "VERSION: $VERSION"
-echo "ARCHIVE: $ARCHIVE"
-echo "DOWNLOAD_URL: $DOWNLOAD_URL"
-echo "CHECKSUMS_URL: $CHECKSUMS_URL"
-
 curl -fL "$DOWNLOAD_URL" -o "$TMP_DIR/$ARCHIVE"
 curl -fL "$CHECKSUMS_URL" -o "$TMP_DIR/checksum.txt"
 
