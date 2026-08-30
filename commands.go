@@ -66,7 +66,7 @@ Commands:
   mark-todo <id>                Mark task as todo
   mark-in-progress <id>         Mark task as in-progress
   mark-done <id>                Mark task as done
-  help                          Show this help message
+  --help                        Show this help message
   -v, --version                 Show Timo version
 	
 Examples:
@@ -79,6 +79,5 @@ Examples:
 }
 
 func ShowVersion() {
-	Version := "dev"
-	fmt.Println("Timo", Version)
+	fmt.Println(version)
 }

@@ -177,7 +177,7 @@ echo
 case ":$PATH:" in
     *":$INSTALL_DIR:"*)
         echo "You can now run:"
-        echo "  timo --help"
+        echo "  timo --v"
         ;;
 
     *)

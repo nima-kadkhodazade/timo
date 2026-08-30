@@ -26,17 +26,32 @@ jobs:
 
       - name: Build
         run: |
+          VERSION="${GITHUB_REF_NAME}"
+            
           mkdir -p dist/linux-amd64
           mkdir -p dist/linux-arm64
           mkdir -p dist/macos-amd64
           mkdir -p dist/macos-arm64
-          GOOS=linux GOARCH=amd64 go build -o dist/linux-amd64/timo
-          GOOS=linux GOARCH=arm64 go build -o dist/linux-arm64/timo
-          GOOS=darwin GOARCH=amd64 go build -o dist/macos-amd64/timo
-          GOOS=darwin GOARCH=arm64 go build -o dist/macos-arm64/timo
 
-          echo "=== dist structure ==="
-          find dist -type f -ls
+          GOOS=linux GOARCH=amd64 go build \
+          -ldflags="-X main.version=${VERSION}" \
+          -o dist/linux-amd64/timo
+          
+          GOOS=linux GOARCH=arm64 go build \
+          -ldflags="-X main.version=${VERSION}" \
+          -o dist/linux-arm64/timo
+          
+          GOOS=darwin GOARCH=amd64 go build \
+          -ldflags="-X main.version=${VERSION}" \
+          -o dist/macos-amd64/timo
+          
+          GOOS=darwin GOARCH=arm64 go build \
+          -ldflags="-X main.version=${VERSION}" \
+          -o dist/macos-arm64/timo
+
+      - name: Check Version
+        run: |
+            ./dist/linux-amd64/timo --version
 
       - name: Package
         run: |
