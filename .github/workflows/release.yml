@@ -56,8 +56,8 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            timo-linux-amd64
-            timo-linux-arm64
-            timo-macos-amd64
-            timo-macos-arm64
+            timo-linux-amd64.tar.gz
+            timo-linux-arm64.tar.gz
+            timo-macos-amd64.tar.gz
+            timo-macos-arm64.tar.gz
             checksum.txt
