@@ -35,6 +35,9 @@ jobs:
           GOOS=darwin GOARCH=amd64 go build -o dist/macos-amd64/timo
           GOOS=darwin GOARCH=arm64 go build -o dist/macos-arm64/timo
 
+          echo "=== dist structure ==="
+          find dist -type f -ls
+
       - name: Package
         run: |
             tar -czf timo-linux-amd64.tar.gz -C dist/linux-amd64/timo
