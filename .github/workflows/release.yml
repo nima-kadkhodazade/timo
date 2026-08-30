@@ -32,8 +32,8 @@ jobs:
           mkdir -p dist/macos-arm64
           GOOS=linux GOARCH=amd64 go build -o dist/linux-amd64/timo
           GOOS=linux GOARCH=arm64 go build -o dist/linux-amd64/timo
-          GOOS=macos GOARCH=amd64 go build -o dist/macos-amd64/timo
-          GOOS=macos GOARCH=arm64 go build -o dist/macos-amd64/timo
+          GOOS=darwin GOARCH=amd64 go build -o dist/macos-amd64/timo
+          GOOS=darwin GOARCH=arm64 go build -o dist/macos-amd64/timo
 
       - name: Package
         run: |
@@ -48,7 +48,7 @@ jobs:
               timo-macos-amd64.tar.gz \
               timo-macos-arm64.tar.gz \
               > checksum.txt
-            
+
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
