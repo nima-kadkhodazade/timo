@@ -95,7 +95,7 @@ Available builds:
 | macOS | AMD64 |
 | macOS | ARM64 |
 
-> package-manager support are planned for a future release.
+> Package-manager support is planned for a future release.
 
 ---
 
