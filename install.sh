@@ -1,11 +1,23 @@
 #!/usr/bin/env bash
 
+# ------------------------
+# Color
+# ------------------------
+
+FMT_RED=$(printf '\033[31m')
+FMT_GREEN=$(printf '\033[32m')
+FMT_YELLOW=$(printf '\033[33m')
+FMT_BLUE=$(printf '\033[34m')
+FMT_CYAN=$(printf '\033[0;36m')
+FMT_BOLD=$(printf '\033[1m')
+FMT_RESET=$(printf '\033[0m')
+
 set -euo pipefail
 
 REPO="nima-kadkhodazade/timo"
 INSTALL_DIR="${INSTALL_DIR:-$HOME/.local/bin}"
 
-echo "Installing Timo..."
+echo "${FMT_BLUE}Installing Timo...${FMT_RESET}"
 
 # -------------------------
 # Detect OS
@@ -23,7 +35,7 @@ case "$OS" in
         ;;
 
     *)
-        echo "Error: Unsupported operating system: $OS"
+        echo "${FMT_RED}Error: Unsupported operating system: $OS ${FMT_RESET}"
         exit 1
         ;;
 esac
@@ -91,7 +103,7 @@ cleanup() {
 
 trap cleanup EXIT
 
-echo "Downloading $ARCHIVE..."
+echo "${FMT_BLUE}Downloading $ARCHIVE...${FMT_RESET}"
 
 curl -fL "$DOWNLOAD_URL" -o "$TMP_DIR/$ARCHIVE"
 curl -fL "$CHECKSUMS_URL" -o "$TMP_DIR/checksum.txt"
@@ -100,7 +112,7 @@ curl -fL "$CHECKSUMS_URL" -o "$TMP_DIR/checksum.txt"
 # Verify checksum
 # -------------------------
 
-echo "Verifying checksum..."
+echo "${FMT_YELLOW}Verifying checksum...${FMT_RESET}"
 
 cd "$TMP_DIR"
 
@@ -137,7 +149,7 @@ fi
 # Extract
 # -------------------------
 
-echo "Extracting..."
+echo "${FMT_BLUE}Extracting...${FMT_RESET}"
 
 tar -xzf "$ARCHIVE"
 
@@ -152,7 +164,7 @@ mv timo "$INSTALL_DIR/timo"
 chmod +x "$INSTALL_DIR/timo"
 
 echo
-echo "Timo $VERSION installed successfully!"
+echo "${FMT_GREEN}Timo $VERSION installed successfully!${FMT_RESET}"
 echo
 echo "Installed to:"
 echo "$INSTALL_DIR/timo"
