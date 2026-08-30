@@ -26,16 +26,35 @@ jobs:
 
       - name: Build
         run: |
-          GOOS=linux GOARCH=amd64 go build -o timo-linux-amd64
-          GOOS=linux GOARCH=arm64 go build -o timo-linux-arm64
-          GOOS=darwin GOARCH=amd64 go build -o timo-darwin-amd64
-          GOOS=darwin GOARCH=arm64 go build -o timo-darwin-arm64
+          mkdir -p dist/linux-amd64
+          mkdir -p dist/linux-arm64
+          mkdir -p dist/macos-amd64
+          mkdir -p dist/macos-arm64
+          GOOS=linux GOARCH=amd64 go build -o dist/linux-amd64/timo
+          GOOS=linux GOARCH=arm64 go build -o dist/linux-amd64/timo
+          GOOS=macos GOARCH=amd64 go build -o dist/macos-amd64/timo
+          GOOS=macos GOARCH=arm64 go build -o dist/macos-amd64/timo
 
+      - name: Package
+        run: |
+            tar -czf timo-linux-amd64.tar.gz -C dist/linux-amd64/timo
+            tar -czf timo-linux-arm64.tar.gz -C dist/linux-arm64/timo
+            tar -czf timo-macos-amd64.tar.gz -C dist/linux-amd64/timo
+            tar -czf timo-macos-arm64.tar.gz -C dist/linux-arm64/timo
+
+            sha256sum \
+              timo-linux-amd64.tar.gz \
+              timo-linux-arm64.tar.gz \
+              timo-macos-amd64.tar.gz \
+              timo-macos-arm64.tar.gz \
+              > checksum.txt
+            
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
           files: |
             timo-linux-amd64
             timo-linux-arm64
-            timo-darwin-amd64
-            timo-darwin-arm64
+            timo-macos-amd64
+            timo-macos-arm64
+            checksum.txt
