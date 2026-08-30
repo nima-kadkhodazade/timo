@@ -31,16 +31,16 @@ jobs:
           mkdir -p dist/macos-amd64
           mkdir -p dist/macos-arm64
           GOOS=linux GOARCH=amd64 go build -o dist/linux-amd64/timo
-          GOOS=linux GOARCH=arm64 go build -o dist/linux-amd64/timo
+          GOOS=linux GOARCH=arm64 go build -o dist/linux-arm64/timo
           GOOS=darwin GOARCH=amd64 go build -o dist/macos-amd64/timo
-          GOOS=darwin GOARCH=arm64 go build -o dist/macos-amd64/timo
+          GOOS=darwin GOARCH=arm64 go build -o dist/macos-arm64/timo
 
       - name: Package
         run: |
             tar -czf timo-linux-amd64.tar.gz -C dist/linux-amd64/timo
             tar -czf timo-linux-arm64.tar.gz -C dist/linux-arm64/timo
-            tar -czf timo-macos-amd64.tar.gz -C dist/linux-amd64/timo
-            tar -czf timo-macos-arm64.tar.gz -C dist/linux-arm64/timo
+            tar -czf timo-macos-amd64.tar.gz -C dist/macos-amd64/timo
+            tar -czf timo-macos-arm64.tar.gz -C dist/macos-arm64/timo
 
             sha256sum \
               timo-linux-amd64.tar.gz \
