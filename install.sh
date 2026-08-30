@@ -77,7 +77,7 @@ ARCHIVE="timo-${OS_NAME}-${ARCH_NAME}.tar.gz"
 
 DOWNLOAD_URL="https://github.com/$REPO/releases/download/$VERSION/$ARCHIVE"
 
-CHECKSUMS_URL="https://github.com/$REPO/releases/download/$VERSION/checksums.txt"
+CHECKSUMS_URL="https://github.com/$REPO/releases/download/$VERSION/checksum.txt"
 
 # -------------------------
 # Temporary directory
