@@ -74,6 +74,12 @@ Timo currently supports three task statuses:
 
 ## 📦 Installation
 
+### Easy Installation 
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/nima-kadkhodazade/timo/main/install.sh | bash
+```
+
 ### Pre-built binaries
 
 Download the latest release from:
@@ -89,7 +95,7 @@ Available builds:
 | macOS | AMD64 |
 | macOS | ARM64 |
 
-> Installation scripts and package-manager support are planned for a future release.
+> package-manager support are planned for a future release.
 
 ---
 
