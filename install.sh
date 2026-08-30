@@ -99,7 +99,7 @@ echo "DOWNLOAD_URL: $DOWNLOAD_URL"
 echo "CHECKSUMS_URL: $CHECKSUMS_URL"
 
 curl -fL "$DOWNLOAD_URL" -o "$TMP_DIR/$ARCHIVE"
-curl -fL "$CHECKSUMS_URL" -o "$TMP_DIR/checksums.txt"
+curl -fL "$CHECKSUMS_URL" -o "$TMP_DIR/checksum.txt"
 
 # -------------------------
 # Verify checksum
