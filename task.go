@@ -53,7 +53,8 @@ func ListTasks() {
 		return
 	}
 	for _, task := range tasks {
-		fmt.Printf("ID: %d | Description: %s | Status: %s | Created: %s\n", task.ID, task.Description, task.Status, TimeAgo(task.CreatedAt))
+		icon, status := StatusStyle(task.Status)
+		fmt.Printf("%s ID: %d | Description: %s | Status: %s | Created: %s\n", icon, task.ID, task.Description, status, TimeAgo(task.CreatedAt))
 	}
 }
 
@@ -114,13 +115,6 @@ func UpdateTask(id string, description string) {
 }
 
 func MarkTask(id string, status string) {
-	switch status {
-	case "todo", "in-progress", "done":
-
-	default:
-		fmt.Println("❌ Invalid status.")
-		return
-	}
 	idToFind, err := strconv.Atoi(id)
 	if err != nil {
 		fmt.Println("❌ Error:", err)

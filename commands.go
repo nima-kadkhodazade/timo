@@ -13,6 +13,15 @@ func ManageCommands() {
 	}
 	if strings.HasPrefix(os.Args[1], "mark-") {
 		status := strings.TrimPrefix(os.Args[1], "mark-")
+		if status != "todo" && status != "in-progress" && status != "done" {
+			fmt.Println("❌ Error: Invalid status")
+			return
+		}
+
+		if len(os.Args) < 3 {
+			fmt.Println("❌ Error: Please provide a task ID")
+			return
+		}
 		id := os.Args[2]
 		MarkTask(id, status)
 		return
